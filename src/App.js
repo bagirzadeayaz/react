@@ -1,15 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import TaskLayout from './components/TaskLayout';
+import LeftSide from './components/LeftSide';
+import './App.css';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/*" element={<TaskLayout />} />
-      </Routes>
-    </Router>
+    <div className="app-container">
+      <div className="left-side">
+        <LeftSide />
+      </div>
+      <div className="right-side">
+        <h2>Hello</h2>
+      </div>
+    </div>
   );
 }
-
 export default App;
