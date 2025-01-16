@@ -1,5 +1,6 @@
 import React from 'react';
 import LeftSide from './components/LeftSide';
+import RightSide from './components/RightSide';
 import './App.css';
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
         <LeftSide />
       </div>
       <div className="right-side">
-        <h2>Hello</h2>
+        <h2>a</h2>
       </div>
     </div>
   );
