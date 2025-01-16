@@ -1,5 +1,3 @@
-
-
 function LeftSide() {
     return (
         <div class="container">
@@ -39,7 +37,7 @@ function LeftSide() {
             </div>
 
             <div class="sort">
-                <label for="sortOptions">Sort tasks:</label>
+                <label for="sortOptions">Sort tasks:&nbsp;</label>
                 <select id="sortOptions">
                     <option value="not-sorted">Not sorted</option>
                     <option value="date">Sort by Date</option>
