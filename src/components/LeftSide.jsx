@@ -6,10 +6,13 @@ import { addTask, deleteTask, toggleComplete, setTasks, setSelectedTask } from '
 function LeftSide() {
     const navigate = useNavigate();
     const tasks = useSelector((state) => state.tasks.tasks);
+    const selectedTask = useSelector((state) => state.tasks.selectedTask);
 
     const dispatch = useDispatch();
     const [taskTitle, setTaskTitle] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
+    const [searchQuery, setSearchQuery] = useState(''); 
+    const [filter, setFilter] = useState('all');
 
     useEffect(() => {
         const savedTasks = localStorage.getItem('tasks');
@@ -53,6 +56,11 @@ function LeftSide() {
 
     const handleToggleComplete = (id) => {
         dispatch(toggleComplete(id));
+
+        const updatedTask = tasks.find(task => task.id === id);
+        if (updatedTask && selectedTask && selectedTask.id === updatedTask.id) {
+            dispatch(setSelectedTask({ ...updatedTask, isEditing: selectedTask.isEditing }));
+        }
     };
 
     const handleSelectTask = (task) => {
@@ -64,6 +72,14 @@ function LeftSide() {
         navigate(`/edit/${task.id}`);
         dispatch(setSelectedTask({ ...task, isEditing: true }));
     };
+
+    const filteredTasks = tasks.filter((task) => {
+        const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesFilter =
+            filter === 'all' || (filter === 'completed' && task.completed) || (filter === 'incomplete' && !task.completed);
+
+        return matchesSearch && matchesFilter;
+    });
 
     return (
         <div className="container">
@@ -101,8 +117,20 @@ function LeftSide() {
 
             <section className="task-list">
                 <h2>Your tasks</h2>
+
+                <div className="search">
+                    <label htmlFor="searchQuery">Search by title:</label>
+                    <input
+                        type="text"
+                        id="searchQuery"
+                        placeholder="Search tasks"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
+
                 <ul>
-                    {tasks.map((task) => (
+                    {filteredTasks.map((task) => (
                         <li
                             key={task.id}
                             className={`task-item ${task.completed ? 'completed' : 'incomplete'}`}
@@ -123,21 +151,12 @@ function LeftSide() {
 
                 <div className="filter">
                     <label htmlFor="filterOptions">Filter tasks:</label>
-                    <select id="filterOptions">
+                    <select id="filterOptions" value={filter} onChange={(e) => setFilter(e.target.value)}>
                         <option value="all">All</option>
                         <option value="completed">Completed</option>
                         <option value="incomplete">Incomplete</option>
                     </select>
-                </div>
-
-                <div className="sort">
-                    <label htmlFor="sortOptions">Sort tasks:&nbsp;</label>
-                    <select id="sortOptions">
-                        <option value="not-sorted">Not sorted</option>
-                        <option value="date">Sort by Date</option>
-                        <option value="name">Sort by Name</option>
-                    </select>
-                </div>
+                </div>  
             </section>
         </div>
     );

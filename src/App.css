@@ -1,6 +1,5 @@
 .app-container {
   display: flex;
-  height: 100vh;
 }
 
 .left-side {
@@ -54,23 +53,20 @@ input {
   box-sizing: border-box;
 }
 
-.filter,
-.sort {
+.filter {
     margin: 20px 0;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.filter label,
-.sort label {
+.filter label {
     font-size: 16px;
     font-weight: bold;
     color: #333;
 }
 
-#filterOptions,
-#sortOptions {
+#filterOptions {
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ccc;
@@ -82,8 +78,7 @@ input {
     width: 120px;
 }
 
-#filterOptions:hover,
-#sortOptions:hover {
+#filterOptions:hover {
     border-color: #888;
     background-color: #f1f1f1;
 }
