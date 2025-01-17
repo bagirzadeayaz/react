@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { addTask, deleteTask, toggleComplete, setTasks, setSelectedTask } from '../redux/taskSlice';
 
 function LeftSide() {
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const tasks = useSelector((state) => state.tasks.tasks);
+
+    const dispatch = useDispatch();
     const [taskTitle, setTaskTitle] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
 
@@ -53,10 +56,12 @@ function LeftSide() {
     };
 
     const handleSelectTask = (task) => {
+        navigate(`/task/${task.id}`);
         dispatch(setSelectedTask({ ...task, isEditing: false }));  
     };
     
     const handleEditTask = (task) => {
+        navigate(`/edit/${task.id}`);
         dispatch(setSelectedTask({ ...task, isEditing: true }));
     };
 
