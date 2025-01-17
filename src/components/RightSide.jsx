@@ -47,8 +47,8 @@ function RightSide() {
             {selectedTask ? (
                 !selectedTask.isEditing ? (
                     <div>
-                        <h3>{selectedTask.title}</h3>
-                        <p>{selectedTask.description}</p>
+                        <h3>Title: {selectedTask.title}</h3>
+                        <p>Description: {selectedTask.description}</p>
                         <p>Created At: {new Date(selectedTask.createdAt).toLocaleString()}</p>
                         <p>Status: {selectedTask.completed ? 'Completed' : 'Incomplete'}</p>
                     </div>
